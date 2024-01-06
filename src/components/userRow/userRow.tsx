@@ -1,20 +1,32 @@
 'use client';
 import {User} from '@/model/user';
-import Link from 'next/link';
+import { useRouter } from "next/navigation";
 
 interface UserRowProps {
     user: User;
 }
 
 const UserRow: React.FC<UserRowProps> = ({user}) => {
+    const router = useRouter();
     const handleDeleteUser = () => {
     
+    };
+
+    const createQueryString = (name: string, value: string) => {
+        const params = new URLSearchParams();
+        params.set(name, value);
+    
+        return params.toString();
+    };
+
+    const handleRouteEdit = () => {
+        router.push("/editUser" + "?" + createQueryString("id", user.id.toString()));
     };
 
     return (
         <div key={user.id}>
             <li>{user.name} {user.surname} {user.email} {user.createdAt} {user.updatedAt}</li>
-            <Link href={`/editUser?id=${user.id}`}><button>Edit</button></Link>
+            <button onClick={handleRouteEdit}>Edit</button>
             <button onClick={handleDeleteUser}>Delete</button>
         </div>
     );
