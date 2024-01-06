@@ -1,6 +1,8 @@
 'use client';
 import {User} from '@/model/user';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from "next/navigation";
+import { deleteUser } from '@/service/userService';
 
 interface UserRowProps {
     user: User;
@@ -8,8 +10,9 @@ interface UserRowProps {
 
 const UserRow: React.FC<UserRowProps> = ({user}) => {
     const router = useRouter();
-    const handleDeleteUser = () => {
-    
+
+    const handleDeleteUser = async () => {
+        await deleteUser(user.id);
     };
 
     const createQueryString = (name: string, value: string) => {
@@ -23,7 +26,6 @@ const UserRow: React.FC<UserRowProps> = ({user}) => {
         router.push("/editUser" + "?" + createQueryString("id", user.id.toString()));
     };
 
-    console.log(user);
     return (
         <div key={user.id}>
             <li>{user.name} {user.surname} {user.email} {user.created_at} {user.updated_at}</li>

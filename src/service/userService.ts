@@ -1,6 +1,9 @@
+import { User } from "@/model/user";
+
+// Get all users
 export const getAllUsers = async () => {
     try {
-        const response = await fetch('http://localhost:8000/users');
+        const response = await fetch('http://localhost:8080/users');
         if (!response.ok) {
             throw new Error('Users cannot be fetched');
         }
@@ -14,3 +17,29 @@ export const getAllUsers = async () => {
         return { data: null, error: message };
     }
 };
+
+export const deleteUser = async (id : number) => {
+    try {
+        const response = await fetch(`http://localhost:8080/users/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept':'*/*',
+                'Accept-Encoding':'gzip, deflate, br',
+                'Connection':'keep-alive'
+            },
+        });
+        if (!response.ok) {
+            throw new Error(`Failed to delete user with ID: ${id}`);
+        }
+
+        console.log(`User with ID: ${id} deleted successfully`);
+        return { data: `User with ID: ${id} was deleted successfully`, error: null };
+    } catch (error) {
+        console.error('Failed to delete user:', error);
+
+        const message = error instanceof Error ? error.message : 'An unknown error occurred';
+        return { data: null, error: message };
+    }
+};
+
