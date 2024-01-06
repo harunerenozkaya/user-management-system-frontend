@@ -23,9 +23,10 @@ const UserRow: React.FC<UserRowProps> = ({user}) => {
         router.push("/editUser" + "?" + createQueryString("id", user.id.toString()));
     };
 
+    console.log(user);
     return (
         <div key={user.id}>
-            <li>{user.name} {user.surname} {user.email} {user.createdAt} {user.updatedAt}</li>
+            <li>{user.name} {user.surname} {user.email} {user.created_at} {user.updated_at}</li>
             <button onClick={handleRouteEdit}>Edit</button>
             <button onClick={handleDeleteUser}>Delete</button>
         </div>
