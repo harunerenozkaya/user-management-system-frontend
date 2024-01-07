@@ -29,11 +29,17 @@ const UserRow: React.FC<UserRowProps> = ({user}) => {
     };
 
     return (
-        <div key={user.id}>
-            <li>{user.name} {user.surname} {user.email} {user.created_at} {user.updated_at}</li>
-            <button onClick={handleRouteEdit}>Edit</button>
-            <button onClick={handleDeleteUser}>Delete</button>
-        </div>
+        <tr>
+            <td>{user.name}</td>
+            <td>{user.surname}</td>
+            <td>{user.email}</td>
+            <td>{user.created_at}</td>
+            <td>{user.updated_at}</td>
+            <td>
+                <button className="btn btn-secondary btn-sm me-2" onClick={handleRouteEdit}>Edit</button>
+                <button className="btn btn-danger btn-sm" onClick={handleDeleteUser}>Delete</button>
+            </td>
+        </tr>
     );
 }
 
