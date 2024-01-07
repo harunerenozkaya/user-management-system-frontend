@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation'
 import { createUser, updateUser } from '@/service/userService';
 import {User} from '@/model/user';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 type ActionType = 'add' | 'edit';
