@@ -19,7 +19,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
         </tr>
       </thead>
       <tbody>
-        {users.map(user => (
+        {users && users.map(user => (
           <UserRow key={user.id} user={user} />
         ))}
       </tbody>
