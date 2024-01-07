@@ -25,6 +25,7 @@ export default function Home() {
     return (
         <div className="container mt-5">
             <h1 className="text-center flex-grow-1">Users</h1>
+            <br/>
             <Link href="/createUser"><button className="col btn btn-primary mb-3 align-items-right">Create New User</button></Link>
             {error && <div className="alert">{error}</div>}
             {<UserList users={users} />}

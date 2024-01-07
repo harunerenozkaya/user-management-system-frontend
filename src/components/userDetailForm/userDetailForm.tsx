@@ -88,38 +88,51 @@ const UserDetailForm: React.FC<UserDetailFormProps> = ({
     };
 
     return (
-        <form>
-            <label>
-                Name:
-                <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                />
-            </label>
-            <br />
-            <label>
-                Surname:
-                <input
-                    type="text"
-                    value={surname}
-                    onChange={(e) => setSurname(e.target.value)}
-                />
-            </label>
-            <br />
-            <label>
-                Email:
-                <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-            </label>
-            <br />
-            <button type="button" onClick={handleBack}>Back</button>
-            <button type="button" onClick={handleSubmit}>{actionType === 'add' ? 'Create' : 'Save'}</button>
-            <p> {error} </p>
-        </form>
+        <div className="container mt-4">
+            <div className="row justify-content-center">
+                <div className="col-lg-4">
+                    <h2 className="text-center mb-4">{actionType === 'add' ? 'Create a new user' : 'Edit user'}</h2>
+                    <br/>
+                    <form>
+                        <div className="mb-3">
+                            <label htmlFor="name" className="form-label">Name:</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="name"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="surname" className="form-label">Surname:</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="surname"
+                                value={surname}
+                                onChange={(e) => setSurname(e.target.value)}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="email" className="form-label">Email:</label>
+                            <input
+                                type="email"
+                                className="form-control"
+                                id="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                        </div>
+                        <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="button" className="btn btn-secondary me-md-2" onClick={handleBack}>Back</button>
+                            <button type="button" className="btn btn-primary" onClick={handleSubmit}>{actionType === 'add' ? 'Create' : 'Save'}</button>
+                        </div>
+                        {error && <div className="alert alert-danger mt-3">{error}</div>}
+                    </form>
+                </div>
+            </div>
+        </div>
     );
 };
 
