@@ -21,7 +21,8 @@ const UserDetailForm: React.FC<UserDetailFormProps> = ({
     const [name, setName] = useState(user?.name || '');
     const [surname, setSurname] = useState(user?.surname || '');
     const [email, setEmail] = useState(user?.email || '');
-    const [error, setError] = useState('');
+    const [status, setStatus] = useState('');
+    const [statusType, setStatusType] = useState('');
 
     useEffect(() => {
         if (actionType === 'edit') {
@@ -54,16 +55,19 @@ const UserDetailForm: React.FC<UserDetailFormProps> = ({
             try {
                 const result = await createUser(user);
                 if (result.error == null) {
-                    setError('User created successfully');
+                    setStatus('User created successfully');
+                    setStatusType('success')
                     // Clear form
                     clearForm();
                 }
                 else {
-                    setError(result.error);
+                    setStatus(result.error);
+                    setStatusType('danger')
                 }
             }
             catch (e) {
-                setError((e as Error).message);
+                setStatus((e as Error).message);
+                setStatusType('danger')
             }
         }
 
@@ -72,14 +76,17 @@ const UserDetailForm: React.FC<UserDetailFormProps> = ({
             try {
                 const result = await updateUser(user);
                 if (result.error == null) {
-                    setError('User edited successfully');
+                    setStatus('User edited successfully');
+                    setStatusType('success')
                 }
                 else {
-                    setError(result.error);
+                    setStatus(result.error);
+                    setStatusType('danger')
                 }
             }
             catch (e) {
-                setError((e as Error).message);
+                setStatus((e as Error).message);
+                setStatusType('danger')
             }
         }
     };
@@ -128,7 +135,8 @@ const UserDetailForm: React.FC<UserDetailFormProps> = ({
                             <button type="button" className="btn btn-secondary me-md-2" onClick={handleBack}>Back</button>
                             <button type="button" className="btn btn-primary" onClick={handleSubmit}>{actionType === 'add' ? 'Create' : 'Save'}</button>
                         </div>
-                        {error && <div className="alert alert-danger mt-3">{error}</div>}
+                        {status && statusType === 'success' && <div className="alert mt-3 alert-success">{status}</div>}
+                        {status && statusType === 'danger' && <div className="alert mt-3 alert-danger">{status}</div>}
                     </form>
                 </div>
             </div>

@@ -29,7 +29,7 @@ export const getUser = async (id : number) => {
         console.log(`User with ID: ${id} fetched successfully:`, data);
         return { data, error: null };
     } catch (error) {
-        console.error(`Failed to fetch user with ID: ${id}`, error);
+        console.error(`Failed to fetch user`, error);
 
         const message = error instanceof Error ? error.message : 'An unknown error occurred';
         return { data: null, error: message };
@@ -75,7 +75,7 @@ export const updateUser = async (user : User) => {
             body: JSON.stringify(user),
         });
         if (!response.ok) {
-            throw new Error(`User with ID: ${user.id} cannot be updated`);
+            throw new Error(`User cannot be updated`);
         }
         const data = await response.json();
         return { data, error: null };
@@ -98,7 +98,7 @@ export const deleteUser = async (id : number) => {
             },
         });
         if (!response.ok) {
-            throw new Error(`Failed to delete user with ID: ${id}`);
+            throw new Error(`Failed to delete user`);
         }
 
         console.log(`User with ID: ${id} deleted successfully`);
