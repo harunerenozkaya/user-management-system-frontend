@@ -1,7 +1,7 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation'
-import { createUser } from '@/service/userService';
+import { createUser, updateUser } from '@/service/userService';
 import {User} from '@/model/user';
 
 
@@ -9,23 +9,30 @@ type ActionType = 'add' | 'edit';
 
 interface UserDetailFormProps {
     actionType: ActionType;
-    defaultValues?: {
-        name: string;
-        surname: string;
-        email: string;
-    };
+    user?: User;
 }
 
 const UserDetailForm: React.FC<UserDetailFormProps> = ({
     actionType,
-    defaultValues,
+    user,
 }) => {
     const router = useRouter();
-    const [name, setName] = useState(defaultValues?.name || '');
-    const [surname, setSurname] = useState(defaultValues?.surname || '');
-    const [email, setEmail] = useState(defaultValues?.email || '');
+    const [id, setId] = useState(user?.id || 0);
+    const [name, setName] = useState(user?.name || '');
+    const [surname, setSurname] = useState(user?.surname || '');
+    const [email, setEmail] = useState(user?.email || '');
     const [error, setError] = useState('');
 
+    useEffect(() => {
+        if (actionType === 'edit') {
+            setName(user?.name || '');
+            setSurname(user?.surname || '');
+            setEmail(user?.email || '');
+            setId(user?.id || 0);
+        }
+    }, [user]);
+
+    // Clear form
     const clearForm = () => {
         setName('');
         setSurname('');
@@ -33,22 +40,27 @@ const UserDetailForm: React.FC<UserDetailFormProps> = ({
     }
 
     const handleSubmit = async () => {
+        const user: User = {
+            id: id,
+            name: name,
+            surname: surname,
+            email: email,
+            created_at: '',
+            updated_at: ''
+        };
+
         // Create user
         if (actionType === 'add') {
-            const user: User = {
-                id: 0,
-                name: name,
-                surname: surname,
-                email: email,
-                created_at: '',
-                updated_at: ''
-            };
             try {
                 const result = await createUser(user);
-                setError('User created successfully');
-
-                // Clear form
-                clearForm();
+                if (result.error == null) {
+                    setError('User created successfully');
+                    // Clear form
+                    clearForm();
+                }
+                else {
+                    setError(result.error);
+                }
             }
             catch (e) {
                 setError((e as Error).message);
@@ -57,7 +69,18 @@ const UserDetailForm: React.FC<UserDetailFormProps> = ({
 
         // Edit User
         else if (actionType === 'edit') {
-            console.log('Save user');
+            try {
+                const result = await updateUser(user);
+                if (result.error == null) {
+                    setError('User edited successfully');
+                }
+                else {
+                    setError(result.error);
+                }
+            }
+            catch (e) {
+                setError((e as Error).message);
+            }
         }
     };
     const handleBack = () => {
