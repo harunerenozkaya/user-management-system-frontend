@@ -13,6 +13,8 @@ const UserRow: React.FC<UserRowProps> = ({user}) => {
 
     const handleDeleteUser = async () => {
         await deleteUser(user.id);
+        // Refresh page after deleting user
+        location.reload();
     };
 
     const createQueryString = (name: string, value: string) => {
