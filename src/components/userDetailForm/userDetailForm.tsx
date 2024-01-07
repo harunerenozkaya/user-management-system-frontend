@@ -1,6 +1,8 @@
 'use client';
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation'
+import { createUser } from '@/service/userService';
+import {User} from '@/model/user';
 
 
 type ActionType = 'add' | 'edit';
@@ -22,16 +24,48 @@ const UserDetailForm: React.FC<UserDetailFormProps> = ({
     const [name, setName] = useState(defaultValues?.name || '');
     const [surname, setSurname] = useState(defaultValues?.surname || '');
     const [email, setEmail] = useState(defaultValues?.email || '');
+    const [error, setError] = useState('');
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
+    const clearForm = () => {
+        setName('');
+        setSurname('');
+        setEmail('');
+    }
+
+    const handleSubmit = async () => {
+        // Create user
+        if (actionType === 'add') {
+            const user: User = {
+                id: 0,
+                name: name,
+                surname: surname,
+                email: email,
+                created_at: '',
+                updated_at: ''
+            };
+            try {
+                const result = await createUser(user);
+                setError('User created successfully');
+
+                // Clear form
+                clearForm();
+            }
+            catch (e) {
+                setError((e as Error).message);
+            }
+        }
+
+        // Edit User
+        else if (actionType === 'edit') {
+            console.log('Save user');
+        }
     };
     const handleBack = () => {
         router.back();
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form>
             <label>
                 Name:
                 <input
@@ -59,8 +93,9 @@ const UserDetailForm: React.FC<UserDetailFormProps> = ({
                 />
             </label>
             <br />
-            <button onClick={handleBack}>Back</button>
-            <button type="submit">{actionType === 'add' ? 'Create' : 'Save'}</button>
+            <button type="button" onClick={handleBack}>Back</button>
+            <button type="button" onClick={handleSubmit}>{actionType === 'add' ? 'Create' : 'Save'}</button>
+            <p> {error} </p>
         </form>
     );
 };

@@ -18,6 +18,32 @@ export const getAllUsers = async () => {
     }
 };
 
+// Get user by ID
+export const createUser = async (user : User) => {
+    try {
+        console.log(user);
+        const response = await fetch('http://localhost:8080/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept':'*/*',
+                'Accept-Encoding':'gzip, deflate, br',
+                'Connection':'keep-alive'
+            },
+            body: JSON.stringify(user),
+        });
+        if (!response.ok) {
+            throw new Error('User cannot be created');
+        }
+        const data = await response.json();
+        return { data, error: null };
+    } catch (error) {
+        const message = error instanceof Error ? error.message : 'An unknown error occurred';
+        return { data: null, error: message };
+    }
+}
+
+// Detete user by ID
 export const deleteUser = async (id : number) => {
     try {
         const response = await fetch(`http://localhost:8080/users/${id}`, {
