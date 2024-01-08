@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+<h1 align="center"> User Management System Frontend</h1> <br> 
+<p align="center">
+<img src = "img/umg_logo.png" height=200> &nbsp;
+</p>
+
+## Table of Contents
+
+- [Table of Contents](#table-of-contents)
+- [Introduction](#introduction)
+- [Navigation](#navigation)
+- [Prerequisites](#prerequisites)
+- [Getting Started](#getting-started)
+- [Screenshots](#screenshots)
+- [Technologies](#technologies)
+
+## Introduction
+
+The User Management System is a system that provides a mechanism for storing and managing user information. Managers can create, edit, and delete user profiles. This document describes the frontend component of the User Management System project, which offers the web interface for the manager.
+
+## Navigation
+- Backend : https://github.com/harunerenozkaya/user-management-system-backend
+- Frontend : this
+
+## Prerequisites
+
+Before running this project, make sure you have the following installed:
+
+- npm
+- React.js
+- Next.js
 
 ## Getting Started
 
-First, run the development server:
+1. Clone the repository:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+    ```
+    git clone https://github.com/harunerenozkaya/user-management-system-frontend
+    ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install the dependencies:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+    ```
+    npm install
+    ```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+2. Build the project:
 
-## Learn More
+    ```
+    npm run build
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+4. Run the application:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    ```
+    npm run start 
+    ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+5. Default port
 
-## Deploy on Vercel
+- As a default , project runs on 3000 port.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Screenshots
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+* Home - All users page <br><br>
+  <img src = "img/users.png" height=400> &nbsp;
+
+* Create new user page <br><br>
+  <img src = "img/createNewUser.png" height=400> &nbsp;
+
+* Edit user page <br><br>
+  <img src = "img/editUser.png" height=400> &nbsp;
+
+## Technologies
+
+- Typescript
+- React.js
+- Next.js
